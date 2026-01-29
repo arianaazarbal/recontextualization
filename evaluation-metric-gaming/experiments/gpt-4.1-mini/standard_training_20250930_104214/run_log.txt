@@ -1,8 +1,0 @@
-JUDGE TEMPLATE PATH:  prompts/judge/school_of_reward_hacks_hackable.yaml
-EXPERIMENT_DIR=experiments/gpt-4.1-mini/standard_training_20250930_104214
-
-============================================================
-Step 1: Downloading dataset
-============================================================
-
-Error: sequence item 4: expected str instance, NoneType found

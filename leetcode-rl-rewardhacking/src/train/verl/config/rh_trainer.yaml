@@ -1,0 +1,52 @@
+hydra:
+  searchpath:
+    - file://verl/verl/trainer/config
+
+defaults:
+  - ppo_trainer
+  - _self_
+
+data:
+  apply_chat_template_kwargs: {}
+
+actor_rollout_ref:
+  rollout:
+    engine_kwargs:
+      vllm: {}
+
+algorithm:
+  adv_estimator: grpo_modified
+
+  norm_adv_by_std_in_grpo: true
+  fill_nan_global: true
+
+  # Screening specs
+  screening_specs: {} # WARNING: Dict fields are merged
+
+  # Fields to pass to screening functions
+  extra_infos: [] # WARNING: List fields are merged
+
+reward_model:
+  # Acts the same as batch if no activations are passed
+  reward_manager: batch_activations
+
+  # Custom reward function path is not used
+  reward_kwargs: 
+      reward_specs: {} # WARNING: Dict fields are merged
+
+
+trainer:
+  val_before_train: false
+
+activation_cache:
+  enabled: False
+  layers: [] # WARNING: List fields are merged
+  position: "response_avg"
+  batch_size: 16
+
+# Recontextualization: use different prompts for generation vs training
+recontextualization:
+  enabled: false
+  old_logprob_mode: generation  # 'generation' or 'training'
+  generation_prompt_key: prompt_generation
+  training_prompt_key: prompt_training
